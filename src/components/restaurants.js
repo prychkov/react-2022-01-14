@@ -1,6 +1,9 @@
 import { useState, useMemo } from 'react';
 import Menu from './menu';
 import Tabs from './tabs';
+import Rate from './rate';
+import Reviews from './reviews';
+import Restaurant from './restaurant';
 
 export default function Restaurants({ restaurants }) {
   const [activeId, setActiveId] = useState(restaurants[0].id);
@@ -14,11 +17,11 @@ export default function Restaurants({ restaurants }) {
     () => restaurants.find((restaurant) => restaurant.id === activeId),
     [activeId, restaurants]
   );
-
+  
   return (
     <div>
       <Tabs tabs={tabs} onChange={setActiveId} />
-      <Menu menu={activeRestaurant.menu} />
+      <Restaurant menu={activeRestaurant.menu} reviews={activeRestaurant.reviews} />
     </div>
   );
 }
