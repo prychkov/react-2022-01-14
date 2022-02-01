@@ -4,6 +4,7 @@ import cn from 'classnames';
 import styles from './tabs.module.css';
 
 function Tabs({ tabs, activeId, onChange }) {
+  console.log(tabs)
   return (
     <div className={styles.tabs}>
       {tabs.map(({ id, label }) => (

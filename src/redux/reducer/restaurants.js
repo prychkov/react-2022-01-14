@@ -4,7 +4,7 @@ const defaultRestaurants = normalizedRestaurants.reduce(
   (acc, restaurant) => ({...acc, [restaurant.id]: restaurant}),
   {}
 );
-console.log(defaultRestaurants);
+
 export default (restaurants = defaultRestaurants, action) => {
   const { type } = action;
 
