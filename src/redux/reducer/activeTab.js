@@ -4,7 +4,7 @@ export default function (state = {}, action) {
   const { type, id } = action;
   switch (type) {
     case CHANGEACTIVTAB:
-      return  {...state, id};
+      return  { id };
     default:
       return state;
   }
