@@ -9,7 +9,7 @@ export default function (state = {}, action) {
     case DECREMENT:
       return { ...state, [id]: (state[id] || 0) - 1 };
     case REMOVE:
-      return { ...state, [id]: 0 };
+      return {...state, [id]: 0};
     default:
       return state;
   }

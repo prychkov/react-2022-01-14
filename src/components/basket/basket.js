@@ -1,29 +1,45 @@
 import { connect } from 'react-redux';
-import BasketItem from './basketItem';
+import BasketProduct from './basketProduct'
 
-function Basket({amount, restaurants}) {
-  const products = restaurants.map(
-    restaurant => restaurant.menu.filter(
-      product => Object.keys(amount).includes(product.id))).flat();
+function Basket({ order, restaurants}) {
+    
+  const menus = restaurants.map((restaurant) => restaurant.menu).flat();
+
+  const products = [];
+  const totalArr = [];
   
-  const sum = products.reduce((sum, item) => sum + amount[item.id] * item.price, 0);
+  for (let id of Object.keys(order)) {
+    for (let menu of menus) {
+      if(id === menu.id) {
+        products.push(menu);
+      }
+    }
+  }
+
+  for (let id of Object.keys(order)) {
+    for (let menu of menus) {
+      if(id === menu.id) {
+        totalArr.push(menu.price * order[id]); 
+      }
+    }
+  }
+
+  const total = totalArr.reduce((sum, current) => sum + current);
   
   return (
     <div>
-      <div>
-        {products.map((product) =>(
-          <BasketItem key={product.id} product={product} />
-        ))}
-      </div>
-      <div>
-        Total: {sum} $
-      </div>
+      {products.map((product) => (
+        <BasketProduct key={product.id} product={product}/>
+      ))}
+      
+      <h2>Total: {total}</h2>
     </div>
-  );
+  )
 }
 
 const mapStateToProps = (state) => ({
-  amount: state.order || 0,
+  order: state.order,
+  restaurants: state.restaurants,
 });
 
 export default connect(mapStateToProps)(Basket);
