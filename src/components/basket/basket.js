@@ -2,29 +2,14 @@ import { connect } from 'react-redux';
 import BasketProduct from './basketProduct'
 
 function Basket({ order, restaurants}) {
-    
-  const menus = restaurants.map((restaurant) => restaurant.menu).flat();
 
-  const products = [];
-  const totalArr = [];
-  
-  for (let id of Object.keys(order)) {
-    for (let menu of menus) {
-      if(id === menu.id) {
-        products.push(menu);
-      }
-    }
-  }
+  const productsAll = restaurants.map((restaurant) => restaurant.menu).flat();
 
-  for (let id of Object.keys(order)) {
-    for (let menu of menus) {
-      if(id === menu.id) {
-        totalArr.push(menu.price * order[id]); 
-      }
-    }
-  }
+  const orderProducts = Object.keys(order).filter((productId) => order[productId] > 0);
 
-  const total = totalArr.reduce((sum, current) => sum + current);
+  const products = orderProducts.map(productId => productsAll.find(product => product.id === productId));
+
+  const total = products.reduce((sum, product) => sum + product.price * order[product.id], 0);
   
   return (
     <div>
