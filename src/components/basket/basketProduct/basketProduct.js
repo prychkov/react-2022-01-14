@@ -6,8 +6,7 @@ import { ReactComponent as Cross } from '../../../icons/cross.svg';
 import { decrement, increment, remove } from '../../../redux/actions';
 
 
-function BasketProduct({product, order, decrement, increment, remove }) {
-  const sum = product.price * order[product.id];
+function BasketProduct({product, order, sum, decrement, increment, remove }) {
   return (
     <div className={styles.flex}>
       <h5>Product: {product.name}</h5>
@@ -34,9 +33,15 @@ function BasketProduct({product, order, decrement, increment, remove }) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  order: state.order,
-});
+const mapStateToProps = (state, props) => {
+  const sum = props.product.price * state.order[props.product.id];
+  return ({
+    product: props.product,
+    order: state.order,
+    sum,
+  });
+};
+
 
 const mapDispatchToProps = (dispatch, props) => ({
   decrement: () => dispatch(decrement(props.product.id)),
