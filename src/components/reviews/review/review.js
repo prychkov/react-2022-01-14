@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Rate from '../../rate';
 import styles from './review.module.css';
-import { reviewSelector, userSelector } from '../../../redux/selectors';
+import { reviewSelector, userSelector, textSelector, ratingSelector } from '../../../redux/selectors';
 
 const Review = ({ text, rating, user}) => {
   console.log(user);
@@ -36,11 +36,11 @@ Review.defaultProps = {
   user: 'Anonymous',
 };
 
-const mapStateToProps = (state, props) => ({
-  text: state.reviews[props.id].text,
-  rating: state.reviews[props.id].rating,
-  review: reviewSelector(state, props),
-  user: userSelector(state, props),
-});
-
-export default connect(mapStateToProps)(Review);
+export default connect((state, props) => {
+  return {
+    text: textSelector(state, props),
+    rating: ratingSelector(state, props),
+    review: reviewSelector(state, props),
+    user: userSelector(state, props),
+  };
+})(Review);

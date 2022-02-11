@@ -47,3 +47,20 @@ export const userSelector = createSelector(
   (review, users) =>
   users[review.userId].name
 );
+
+export const amountSelector = (state, {id}) => orderSelector(state)[id] || 0;
+export const productSelector = (state, {id}) => productsSelector(state)[id];
+
+export const restaurantSelector = (state, {id}) => restaurantsSelector(state)[id];
+
+export const textSelector = createSelector(
+  reviewSelector,
+  review =>
+  review.text
+);
+
+export const ratingSelector = createSelector(
+  reviewSelector,
+  review =>
+  review.rating
+);

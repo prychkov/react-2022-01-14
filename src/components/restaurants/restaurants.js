@@ -31,8 +31,8 @@ Restaurants.propTypes = {
   ).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  restaurants: restaurantsListSelector(state),
-});
-
-export default connect(mapStateToProps)(Restaurants);
+export default connect((state) => {
+  return {
+    restaurants: restaurantsListSelector(state),
+  };
+})(Restaurants);
