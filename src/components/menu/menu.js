@@ -8,11 +8,7 @@ import styles from './menu.module.css';
 
 class Menu extends Component {
   static propTypes = {
-    menu: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.string.isRequired,
-      }).isRequired
-    ).isRequired,
+    menu: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   };
 
   state = { error: null };
@@ -23,7 +19,6 @@ class Menu extends Component {
 
   render() {
     const { menu } = this.props;
-
     if (this.state.error) {
       return <p>Меню этого ресторана сейчас недоступно :(</p>;
     }

@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 export default function useForm(initialValues = {}) {
   const [values, setValues] = useState(initialValues);
-
   const setValue = (key, value) => setValues({ ...values, [key]: value });
 
   const onChange = (key) => (ev) =>

@@ -12,6 +12,11 @@ export const restaurantsListSelector = createSelector(
   Object.values(restaurants)
 );
 
+export const restaurantSelector = (state, {id}) => restaurantsSelector(state)[id];
+export const productSelector = (state, {id}) => productsSelector(state)[id];
+export const reviewSelector = (state, { id }) => reviewsSelector(state)[id];
+export const amountSelector = (state, {id}) => orderSelector(state)[id] || 0;
+
 export const orderProductsSelector = createSelector(
   [productsSelector, orderSelector],
   (products, order) =>
@@ -31,36 +36,23 @@ export const totalSelector = createSelector(
     orderProducts.reduce((acc, { subtotal }) => acc + subtotal, 0)
 );
 
-export const averageRatingSelector = createSelector(
-  [reviewsSelector],
-  (reviews) => {
-    const total = Object.values(reviews).reduce((acc, { rating }) => acc + rating, 0);
-    return Math.round(total / reviews.length);
-  }
-);
-
-export const reviewSelector = (state, { id }) => reviewsSelector(state)[id];
-
-export const userSelector = createSelector(
+export const reviewWitUserSelector = createSelector(
   reviewSelector,
   usersSelector,
-  (review, users) =>
-  users[review.userId].name
-);
+  (review, users) => {
+    return {
+      ...review,
+      user: users[review.userId].name
+    }
+  }
+)
 
-export const amountSelector = (state, {id}) => orderSelector(state)[id] || 0;
-export const productSelector = (state, {id}) => productsSelector(state)[id];
-
-export const restaurantSelector = (state, {id}) => restaurantsSelector(state)[id];
-
-export const textSelector = createSelector(
-  reviewSelector,
-  review =>
-  review.text
-);
-
-export const ratingSelector = createSelector(
-  reviewSelector,
-  review =>
-  review.rating
+export const averageRatingSelector = createSelector(
+  [reviewsSelector, restaurantSelector],
+  (reviews, restaurant) => {
+    const ratings = restaurant.reviews.map((id) => reviews[id].rating);
+    return Math.round(
+      ratings.reduce((acc, rating) => acc + rating) / ratings.length
+     );
+  }
 );

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import Rate from '../../rate';
 import styles from './review.module.css';
-import { reviewSelector, userSelector, textSelector, ratingSelector } from '../../../redux/selectors';
+
+import { reviewWitUserSelector } from '../../../redux/selectors';
 
 const Review = ({ text, rating, user}) => {
-  console.log(user);
   return (
     <div className={styles.review} data-id="review">
       <div className={styles.content}>
@@ -36,11 +36,13 @@ Review.defaultProps = {
   user: 'Anonymous',
 };
 
-export default connect((state, props) => {
+// чтобы была понятна последняя строка это эквивалентные записи
+/* export default connect((state, props) => {
   return {
-    text: textSelector(state, props),
-    rating: ratingSelector(state, props),
-    review: reviewSelector(state, props),
-    user: userSelector(state, props),
+    ...reviewWitUserSelector(state, props),
   };
-})(Review);
+})(Review); */
+
+/* export default connect((state, props) => reviewWitUserSelector(state, props))(Review); */
+
+export default connect(reviewWitUserSelector)(Review);

@@ -1,3 +1,4 @@
+import { ADDREVIEW } from '../constants';
 import { normalizedReviews} from '../../fixtures';
 
 const defaultReviews = normalizedReviews.reduce(
@@ -6,9 +7,14 @@ const defaultReviews = normalizedReviews.reduce(
 );
 
 export default (reviews = defaultReviews, action) => {
-  const { type } = action;
-
+  const { type, review, reviewId, userId } = action;
   switch (type) {
+    case ADDREVIEW:
+      const {text, rating} = review;
+      return {
+        ...reviews,
+        [reviewId]: { id: reviewId, userId, text, rating,}
+      }
     default:
       return reviews;
   }
