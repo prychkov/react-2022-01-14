@@ -13,7 +13,7 @@ const INITIAL_VALUES = { name: '', text: '', rating: 3 };
 
 const ReviewForm = ({ onSubmit }) => {
   const { values, handlers, reset } = useForm(INITIAL_VALUES);
-  
+  console.log(handlers.name);
   const handleSubmit = (ev) => {
     ev.preventDefault();
     onSubmit(values);

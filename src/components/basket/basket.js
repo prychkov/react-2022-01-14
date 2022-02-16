@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import styles from './basket.module.css';
 import itemStyles from './basket-item/basket-item.module.css';
@@ -40,6 +41,21 @@ function Basket({ title = 'Basket', total, orderProducts }) {
       </Button>
     </div>
   );
+}
+
+Basket.propTypes = {
+  title: PropTypes.string.isRequired,
+  total: PropTypes.number.isRequired,
+  orderProducts: PropTypes.arrayOf(PropTypes.shape({
+    amount: PropTypes.number.isRequired,
+    product: PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      price: PropTypes.number,
+      ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+    }).isRequired,
+    subtotal: PropTypes.number.isRequired,
+  })).isRequired
 }
 
 export default connect((state) => {
