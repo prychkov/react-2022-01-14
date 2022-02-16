@@ -44,7 +44,7 @@ function Basket({ title = 'Basket', total, orderProducts }) {
 }
 
 Basket.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   total: PropTypes.number.isRequired,
   orderProducts: PropTypes.arrayOf(PropTypes.shape({
     amount: PropTypes.number.isRequired,
