@@ -8,6 +8,7 @@ import {
   SUCCESS,
   FAILURE,
   LOAD_REVIEWS,
+  LOAD_PRODUCTS,
 } from './constants';
 
 export const increment = (id) => ({ type: INCREMENT, id });
@@ -21,10 +22,13 @@ export const addReview = (review, restId) => ({
   generateId: ['reviewId', 'userId'],
 });
 
-export const loadRestaurants = () => ({
-  type: LOAD_RESTAURANTS,
-  CallAPI: '/api/restaurants',
-});
+export const loadRestaurants = () => {
+  console.log('actions loadRestaurants');
+  return {
+    type: LOAD_RESTAURANTS,
+    CallAPI: '/api/restaurants',
+  }
+};
 
 export const loadReviews = (restId) => async (dispatch) => {
   dispatch({ type: LOAD_REVIEWS + REQUEST, restId });
@@ -38,3 +42,8 @@ export const loadReviews = (restId) => async (dispatch) => {
     dispatch({ type: LOAD_REVIEWS + FAILURE, restId, error });
   }
 };
+
+export const loadProducts = () => ({
+  type: LOAD_PRODUCTS,
+  callAPI: '/api/products',
+});

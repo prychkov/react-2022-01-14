@@ -12,22 +12,41 @@ import {
 import { loadRestaurants } from '../../redux/actions';
 
 function Restaurants({ restaurants, loading, loaded, loadRestaurants }) {
-  const [_activeId, setActiveId] = useState(restaurants[0]?.id);
+  console.log('Start Render Restaurants', restaurants, loading, loaded, loadRestaurants);
+  const [_activeId, setActiveId] = useState(() => {
+    console.log('useState');
+    return restaurants[0]?.id
+  });
+  
+  console.log('_activeId', _activeId);
 
   useEffect(() => {
+    console.log('useEffect');
     if (!loading && !loaded) loadRestaurants();
   }, [loading, loaded, loadRestaurants]);
 
   const tabs = useMemo(
-    () => restaurants.map(({ id, name }) => ({ id, label: name })),
+    () => {
+      console.log('useMemo');
+      return restaurants.map(({ id, name }) => ({ id, label: name }))
+    },
     [restaurants]
   );
 
-  if (loading) return <Loader />;
-  if (!loaded) return 'No data :(';
+  console.log('tabs', tabs);
+
+  if (loading) {
+    console.log('Loader');
+    return <Loader />;
+  }
+  if (!loaded) {
+    console.log('No data :(');
+    return 'No data :('; 
+  }
 
   const activeId = _activeId || restaurants[0]?.id;
-
+  console.log('activeId', activeId);
+  console.log('End Render Restaurants');
   return (
     <div>
       <Tabs tabs={tabs} onChange={setActiveId} activeId={activeId} />
@@ -45,14 +64,24 @@ Restaurants.propTypes = {
   ).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => {
+  console.log('mapStateToProps');
+  return { 
   restaurants: restaurantsListSelector(state),
   loading: restaurantsLoadingSelector(state),
   loaded: restaurantsLoadedSelector(state),
-});
+  }
+};
 
-const mapDispatchToProps = {
+/* const mapDispatchToProps = {
   loadRestaurants,
+}; */
+
+const mapDispatchToProps = (dispatch) => {
+  console.log('mapDispatchToProps');
+  return {
+    loadRestaurants: () => dispatch(loadRestaurants()),
+  }
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Restaurants);

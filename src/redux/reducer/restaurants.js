@@ -15,17 +15,23 @@ const initialState = {
   error: null,
 };
 
+console.log('Reducer restaurants', `initialState: ${initialState}`);
+
 export default (state = initialState, action) => {
+  console.log('Reducer restaurants', `state: ${state}, action: ${action}`);
   const { type, restId, reviewId, data, error } = action;
+  console.log('Reducer restaurants before switch', `type: ${type}, restId: ${restId}, reviewId: ${reviewId}, data: ${data}, error: ${error}`);
 
   switch (type) {
     case LOAD_RESTAURANTS + REQUEST:
+      console.log('Reducer restaurants LOAD_RESTAURANTS + REQUEST');
       return {
         ...state,
         loading: true,
         error: null,
       };
     case LOAD_RESTAURANTS + SUCCESS:
+      console.log('Reducer restaurants LOAD_RESTAURANTS + SUCCESS');
       return {
         ...state,
         entities: arrToMap(data),
