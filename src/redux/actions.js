@@ -23,7 +23,7 @@ export const addReview = (review, restId) => ({
 });
 
 export const loadRestaurants = () => {
-  console.log('actions loadRestaurants');
+  //console.log('actions loadRestaurants');
   return {
     type: LOAD_RESTAURANTS,
     CallAPI: '/api/restaurants',
@@ -43,7 +43,10 @@ export const loadReviews = (restId) => async (dispatch) => {
   }
 };
 
-export const loadProducts = () => ({
-  type: LOAD_PRODUCTS,
-  callAPI: '/api/products',
-});
+export const loadProducts = () => {
+  //console.log('actions loadRestaurants');
+  return {
+    type: LOAD_PRODUCTS,
+    CallAPI: '/api/products',
+  }
+};

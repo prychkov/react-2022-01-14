@@ -4,13 +4,21 @@ import PropTypes from 'prop-types';
 
 import styles from './product.module.css';
 import Button from '../button';
-import { decrement, increment } from '../../redux/actions';
-import { amountSelector, productSelector } from '../../redux/selectors';
+import Loader from '../loader';
+import {
+  amountSelector,
+  productSelector,
+  productsLoadingSelector,
+  productsLoadedSelector } from '../../redux/selectors';
+import { decrement, increment, loadProducts } from '../../redux/actions';
 
-function Product({ product, amount, decrement, increment, fetchData }) {
+function Product({ product, amount, decrement, increment, loading, loaded, loadProducts }) {
   useEffect(() => {
-    fetchData?.(product.id);
-  }, []); // eslint-disable-line
+    if(!loading && !loaded) loadProducts();
+  }, [loading, loaded, loadProducts]);
+
+  if(loading) return <Loader />;
+  if(!loaded) return 'No data :(';
 
   return (
     <div className={styles.product} data-id="product">
@@ -44,23 +52,32 @@ function Product({ product, amount, decrement, increment, fetchData }) {
   );
 }
 
-Product.propTypes = {
+/* Product.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
     ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
-  fetchData: PropTypes.func,
+  //fetchData: PropTypes.func,
   // from connect
   amount: PropTypes.number,
   decrement: PropTypes.func,
   increment: PropTypes.func,
-};
+}; */
 
-const mapStateToProps = (state, props) => ({
+/* const mapStateToProps = (state, props) => ({
   amount: amountSelector(state, props),
   product: productSelector(state, props),
-});
+}); */
+
+const mapStateToProps = (state, props) => {
+  return {
+    amount: amountSelector(state, props),
+    product: productSelector(state, props),
+    loading: productsLoadingSelector(state, props),
+    loaded: productsLoadedSelector(state, props),
+  }
+};
 
 // const mapDispatchToProps = {
 //   decrement,
@@ -70,6 +87,7 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = (dispatch, props) => ({
   decrement: () => dispatch(decrement(props.id)),
   increment: () => dispatch(increment(props.id)),
+  loadProducts: () => dispatch(loadProducts()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);
