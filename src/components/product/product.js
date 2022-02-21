@@ -52,18 +52,18 @@ function Product({ product, amount, decrement, increment, loading, loaded, loadP
   );
 }
 
-/* Product.propTypes = {
+Product.propTypes = {
   product: PropTypes.shape({
     name: PropTypes.string,
     price: PropTypes.number,
     ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  }).isRequired,
+  }),
   //fetchData: PropTypes.func,
   // from connect
   amount: PropTypes.number,
   decrement: PropTypes.func,
   increment: PropTypes.func,
-}; */
+};
 
 /* const mapStateToProps = (state, props) => ({
   amount: amountSelector(state, props),
