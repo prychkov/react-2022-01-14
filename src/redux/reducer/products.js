@@ -14,26 +14,21 @@ export default (state = initialState, action) => {
     case LOAD_PRODUCTS + REQUEST:
       return {
         ...state,
-        
         loading: {[restId]: true},
         //error: null,
       };
     case LOAD_PRODUCTS + SUCCESS:
-      const {entities, loading} = state;
+      const {entities, loaded} = state;
       return {
         ...state,
-        //loading: Object.assign(loading, {[restId]: false}),
         loading: {[restId]: false},
-        
-        loaded: {[restId]: true},
+        loaded: {...loaded, [restId]: true},
         entities: Object.assign(entities, arrToMap(data)),
       };
     case LOAD_PRODUCTS + FAILURE:
       return {
         ...state,
-        
         loading: {[restId]: false},
-        
         loaded: {[restId]: false},
         error,
       };
