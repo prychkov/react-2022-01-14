@@ -44,11 +44,11 @@ export const loadReviews = (restId) => async (dispatch) => {
   }
 };
 
-export const loadProducts = () => {
-  //console.log('actions loadRestaurants');
+export const loadProducts = (restId) => {
   return {
     type: LOAD_PRODUCTS,
-    CallAPI: '/api/products',
+    CallAPI: `/api/products?id=${restId}`,
+    restId,
   }
 };
 
