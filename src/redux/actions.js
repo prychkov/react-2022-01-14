@@ -24,7 +24,6 @@ export const addReview = (review, restId) => ({
 });
 
 export const loadRestaurants = () => {
-  //console.log('actions loadRestaurants');
   return {
     type: LOAD_RESTAURANTS,
     CallAPI: '/api/restaurants',
@@ -56,9 +55,7 @@ export const loadUsers = () => async (dispatch) => {
   dispatch({type: LOAD_USERS + REQUEST});
 
   try {
-    const data = await fetch(`/api/users`).then((res) => 
-    res.json()
-    );
+    const data = await fetch(`/api/users`).then((res) => res.json());
     dispatch({type: LOAD_USERS + SUCCESS, data});
   } catch (error) {
     dispatch({type: LOAD_USERS + FAILURE, error});

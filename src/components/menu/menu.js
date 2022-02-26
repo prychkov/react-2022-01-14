@@ -41,8 +41,6 @@ class Menu extends Component {
 
   render() {
     const { menu, loading, loaded } = this.props;
-    /* console.log(`loading: ${loading}`);
-    console.log(`loaded: ${loaded}`); */
     
     if (loading) {
       return <Loader />;
@@ -52,13 +50,13 @@ class Menu extends Component {
       return <p>Нет данных</p>;
     }
 
-    /* if (this.state.error || !loaded) {
-      return <p>Меню этого ресторана сейчас недоступно :(</p>;
-    } */
-
     if (this.state.error) {
       return <p>Меню этого ресторана сейчас недоступно :(</p>;
     }
+
+    /* if (this.state.error || !loaded) { // как первые два условия вышеб только вместе
+      return <p>Меню этого ресторана сейчас недоступно :(</p>;
+    } */
 
     return (
       <div className={styles.menu}>
@@ -79,7 +77,6 @@ const mapStateToProps = (state, props) => {
   return ({
     loading: productsLoadingSelector(state, props),
     loaded: productsLoadedSelector(state, props),
-    state,
   });
 };
 
@@ -87,7 +84,7 @@ const mapDispatchToProps = {
   loadProducts,
 };
 
-/* const mapDispatchToProps = (dispatch, props) => {
+/* const mapDispatchToProps = (dispatch, props) => { // работает так же как выше mapDispatchToProps
   console.log('mapDispatchToProps');
   return {
     loadProducts: () => dispatch(loadProducts(props.restId)),

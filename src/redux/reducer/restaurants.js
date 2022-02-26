@@ -1,4 +1,4 @@
-import produce from 'immer';
+//import produce from 'immer';
 import {
   ADD_REVIEW,
   FAILURE,
@@ -16,20 +16,15 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  //console.log('Reducer restaurants', `state: ${state}, action: ${action}`);
   const { type, restId, reviewId, data, error } = action;
-  //console.log('Reducer restaurants before switch', `type: ${type}, restId: ${restId}, reviewId: ${reviewId}, data: ${data}, error: ${error}`);
-
   switch (type) {
     case LOAD_RESTAURANTS + REQUEST:
-      //console.log('Reducer restaurants LOAD_RESTAURANTS + REQUEST');
       return {
         ...state,
         loading: true,
         error: null,
       };
     case LOAD_RESTAURANTS + SUCCESS:
-      //console.log('Reducer restaurants LOAD_RESTAURANTS + SUCCESS');
       return {
         ...state,
         entities: arrToMap(data),
@@ -44,9 +39,12 @@ export default (state = initialState, action) => {
         error,
       };
     case ADD_REVIEW:
-      return produce(state, (draft) => {
-        draft.entities[restId].reviews.push(reviewId);
-      });
+      const {entities} = state;
+      const restaurant = entities[restId];
+      return {
+        ...state,
+        entities: {...entities, [restId]: {...restaurant, reviews: [...restaurant.reviews, reviewId]}},
+      }
     default:
       return state;
   }
