@@ -1,4 +1,4 @@
-//import produce from 'immer';
+import produce from 'immer';
 import { LOAD_USERS, REQUEST, SUCCESS, FAILURE, ADD_REVIEW } from '../constants';
 import { arrToMap } from '../utils';
 
@@ -9,37 +9,31 @@ const initialState = {
   error: null,
 };
 
-export default (state = initialState, action) => {
+export default produce((draft = initialState, action) => {
   const { type, data, error, review, userId } = action;
   switch (type) {
-    case LOAD_USERS + REQUEST:
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-    case LOAD_USERS + SUCCESS:
-      return {
-        ...state,
-        entities: arrToMap(data),
-        loading: false,
-        loaded: true,
-      };
-    case LOAD_USERS + FAILURE:
-      return {
-        ...state,
-        loading: false,
-        loaded: false,
-        error,
-      };
-    case ADD_REVIEW:
-      const {entities} = state;
-      const { name } = review;
-      return {
-        ...state,
-        entities: {...entities, [userId]: {id: userId, name}},
+    case LOAD_USERS + REQUEST: {
+        draft.loading = true;
+        draft.error = null;
+        break;
       }
+    case LOAD_USERS + SUCCESS: {
+        draft.entities =  arrToMap(data)
+        draft.loading = false
+        draft.loaded  = true
+        break;
+      }
+    case LOAD_USERS + FAILURE: {
+        draft.loading = false;
+        draft.loaded = false;
+        draft.error = error;
+        break;
+      }
+    case ADD_REVIEW:
+      const { name } = review;
+        draft.entities[userId] = {id: userId, name};
+        break;
     default:
-      return state;
+      return draft;
   }
-};
+});
