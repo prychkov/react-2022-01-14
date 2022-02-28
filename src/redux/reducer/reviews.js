@@ -10,6 +10,8 @@ const initialState = {
 
 export default (state = initialState, action) => {
   const { type, restId, data, error, review, reviewId, userId } = action;
+  const {entities} = state;
+  
   switch (type) {
     case LOAD_REVIEWS + REQUEST:
       return {
@@ -17,7 +19,7 @@ export default (state = initialState, action) => {
         loading: {[restId]: true },
       }
     case LOAD_REVIEWS + SUCCESS:
-      const {entities, loaded} = state;
+      const {loaded} = state;
       return {
         ...state,
         loading: {[restId]: false},
