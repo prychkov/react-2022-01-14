@@ -83,31 +83,17 @@ const Restaurant = ({ restaurant, averageRating }) => {
       <Banner heading={name}>
         <Rate value={averageRating} />
       </Banner>
-      
-      {/* <div className={styles.tabs}>
-        {tabs.map(({ id, label }) => (
-          <span
-            key={id}
-            className={cn(styles.tab, { [styles.active]: id === activeTab })}
-            onClick={() => setActiveTab(id)}
-          >
-            {label}
-          </span>
-        ))}
-      </div> */}
-
-      {/* {() => activeTab === 'menu' && <Menu menu={menu} key={id} restId={id} />}
-      {() => activeTab === 'reviews' && <Reviews reviews={reviews} restId={id} />} */}
 
       {<div className={styles.tabs}>
         {tabs.map(({ id, label }) => (
-          <span
+          <NavLink
             key={id}
-            className={cn(styles.tab, { [styles.active]: id === activeTab })}
-            onClick={() => setActiveTab(id)}
+            to={`/restaurants/${restaurant.id}/${id}`}
+            className={styles.tab}
+            activeClassName={styles.active}
           >
             {label}
-          </span>
+          </NavLink>
         ))}
       </div>}
 
