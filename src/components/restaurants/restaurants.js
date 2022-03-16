@@ -14,6 +14,7 @@ import { loadRestaurants } from '../../redux/actions';
 import styles from './restaurants.module.css';
 
 function Restaurants({ restaurants, loading, loaded, loadRestaurants }) {
+
   useEffect(() => {
     if (!loading && !loaded) loadRestaurants();
   }, [loading, loaded, loadRestaurants]);

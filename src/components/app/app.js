@@ -13,7 +13,6 @@ export default class App extends PureComponent {
           <Route path="/" exact>
             <Redirect to={`/restaurants`}/>
           </Route>
-          {/* <Route path="/" exact component={() => <h2>Home Page!</h2>} /> */}
           <Route path="/checkout" component={Basket} />
           <Route path="/restaurants" component={Restaurants} />
           <Route path="/" component={() => <h2>404 - Not Found Page :(</h2>} />
