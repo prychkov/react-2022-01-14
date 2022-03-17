@@ -12,8 +12,6 @@ import {
 } from '../../redux/selectors';
 import { loadRestaurants } from '../../redux/actions';
 
-import styles from './restaurants.module.css';
-
 function Restaurants({ restaurants, loading, loaded, loadRestaurants }) {
 
   useEffect(() => {
@@ -22,7 +20,7 @@ function Restaurants({ restaurants, loading, loaded, loadRestaurants }) {
 
   const match = useRouteMatch('/restaurants/:restId/:tabId');
   const tabId = match?.params.tabId || '';
-
+  
   if (loading) return <Loader />;
   if (!loaded) return 'No data :(';
 

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Menu from '../menu';
 import Reviews from '../reviews';
@@ -10,8 +10,6 @@ import {
   averageRatingSelector,
   restaurantSelector,
 } from '../../redux/selectors';
-
-import styles from './restautant.module.css';
 
 const Restaurant = ({ restaurant, averageRating }) => {
   const { id, name, menu, reviews } = restaurant;
@@ -36,7 +34,7 @@ const Restaurant = ({ restaurant, averageRating }) => {
         <Route path="/restaurants/:restId/reviews">
           <Reviews reviews={reviews} restId={id} />
         </Route>
-        {/* <Redirect to={`/restaurants/${id}/menu`}/> */}
+        <Redirect to="/restaurants/:restId/menu"/>
       </Switch>
     </div>
   );
