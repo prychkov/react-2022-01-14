@@ -3,6 +3,8 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Restaurants from '../restaurants';
 import Header from '../header';
 import Basket from '../basket';
+import OrderError from '../order-error';
+import OrderSuccess from '../order-success';
 import { UserProvider } from '../../contexts/user-context';
 
 const App = () => {
@@ -15,7 +17,10 @@ const App = () => {
           <Redirect exact from="/" to="/restaurants" />
           <Route path="/checkout" component={Basket} />
           <Route path="/restaurants" component={Restaurants} />
-          <Route path="/error" component={() => <h2>Error Page</h2>} />
+          {/* <Route path="/error" component={() => <h2>Error Page</h2>} /> */}
+          {/* <Route path="/" component={() => <h2>404 - Not Found Page :(</h2>} /> */}
+          <Route path="/order-error" component={OrderError} />
+          <Route path="/order-success" component={OrderSuccess} />
           <Route path="/" component={() => <h2>404 - Not Found Page :(</h2>} />
         </Switch>
       </UserProvider>

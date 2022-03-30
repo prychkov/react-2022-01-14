@@ -1,4 +1,4 @@
-import { replace } from 'connected-react-router';
+import { replace, push } from 'connected-react-router';
 
 import {
   DECREMENT,
@@ -12,6 +12,7 @@ import {
   REQUEST,
   SUCCESS,
   FAILURE,
+  POST_ORDER,
 } from './constants';
 
 import {
@@ -19,6 +20,7 @@ import {
   usersLoadedSelector,
   reviewsLoadingSelector,
   reviewsLoadedSelector,
+  postDataSelector,
 } from './selectors';
 
 export const increment = (id) => ({ type: INCREMENT, id });
@@ -73,3 +75,28 @@ export const loadUsers = () => async (dispatch, getState) => {
 
   dispatch(_loadUsers());
 };
+
+export const postOrder = () => async (dispatch, getState) => {
+  const state = getState();
+  const postData = postDataSelector(state);
+
+  dispatch({type: POST_ORDER + REQUEST});
+
+  try {
+    const response = await fetch('/api/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(postData)});
+      
+    const data = await response.json();
+    
+    if(!response.ok) throw data;
+
+    dispatch({type: POST_ORDER + SUCCESS});
+    dispatch(push('/order-success'));
+  } catch (error) {
+    dispatch({type: POST_ORDER + FAILURE, error});
+    dispatch(push('/order-error'));
+  }
+};
+
