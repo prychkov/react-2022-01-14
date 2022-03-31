@@ -14,9 +14,11 @@ import { orderProductsSelector, totalSelector, orderLoadingSelector } from '../.
 import { postOrder } from '../../redux/actions';
 
 import { UserConsumer } from '../../contexts/user-context';
+import {useConvert} from '../../hooks/use-convert'
 
 function Basket({ title = 'Basket', total, orderProducts, postOrder, loading }) {
   // const { name } = useContext(userContext);
+  const convert = useConvert();
 
   if (!total) {
     return (
@@ -59,7 +61,7 @@ function Basket({ title = 'Basket', total, orderProducts, postOrder, loading }) 
           <p>Total</p>
         </div>
         <div className={itemStyles.info}>
-          <p>{`${total} $`}</p>
+          <p>{convert(total)}</p>
         </div>
       </div>
       <Switch>
