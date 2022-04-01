@@ -9,6 +9,9 @@ const usersSelector = (state) => state.users.entities;
 export const restaurantsLoadingSelector = (state) => state.restaurants.loading;
 export const restaurantsLoadedSelector = (state) => state.restaurants.loaded;
 
+export const orderLoadingSelector = (state) => state.order.loading;
+export const orderErrorSelector = (state) => state.order.error;
+
 export const productsLoadingSelector = (state, props) =>
   state.products.loading[props.restId];
 export const productsLoadedSelector = (state, props) =>
@@ -21,9 +24,6 @@ export const reviewsLoadedSelector = (state, props) =>
 
 export const usersLoadingSelector = (state) => state.users.loading;
 export const usersLoadedSelector = (state) => state.users.loaded;
-
-export const orderLoadingSelector = (state) => state.order.loading;
-export const orderErrorSelector = (state) => state.order.error;
 
 export const restaurantsListSelector = createSelector(
   restaurantsSelector,

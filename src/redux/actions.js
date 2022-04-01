@@ -80,23 +80,11 @@ export const postOrder = () => async (dispatch, getState) => {
   const state = getState();
   const postData = postDataSelector(state);
 
-  dispatch({type: POST_ORDER + REQUEST});
-
-  try {
-    const response = await fetch('/api/order', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(postData)});
-      
-    const data = await response.json();
-    
-    if(!response.ok) throw data;
-
-    dispatch({type: POST_ORDER + SUCCESS});
-    dispatch(push('/order-success'));
-  } catch (error) {
-    dispatch({type: POST_ORDER + FAILURE, error});
-    dispatch(push('/order-error'));
-  }
+ try {
+   await dispatch({type: POST_ORDER, CallAPI: '/api/order', postData});
+   dispatch(push('/order-success'));
+ } catch {
+   dispatch(push('/order-error'));
+ }
 };
 

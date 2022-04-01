@@ -1,19 +1,19 @@
 import { Link } from 'react-router-dom';
-import styles from './success.module.css';
 import Button from '../button';
+import styles from './success.module.css';
 
 function OrderSuccess() {
   return (
-    <div>
-      <div className={styles.success} >
-        'You order success';
+    <h1>
+      <p>Congratulations! Your order has been successfully created!</p>
+      <div className={styles.actions} >
+        <Link to="/restaurants">
+          <Button primary block>
+            back to restaurants
+          </Button>
+        </Link>
       </div>
-      <Link to="/restaurants">
-        <Button primary block>
-          To restaurants
-        </Button>
-      </Link>
-    </div>
+    </h1>    
   );
 }
 

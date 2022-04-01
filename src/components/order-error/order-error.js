@@ -14,16 +14,16 @@ function OrderError({error}) {
   const errorText = error?.replace(/\$(\d+)/gi, (_, t) => convert(t));
 
   return (
-    <div>
-      <div className={styles.error}>
-        {errorText}
+    <h1 className={styles.page}>
+      <p>{errorText}</p>
+      <div className={styles.actions}>
+        <Link to="/checkout">
+          <Button primary block>
+            to checkout
+          </Button>
+        </Link>
       </div>
-      <Link to="/checkout">
-        <Button primary block>
-          To checkout
-        </Button>
-      </Link>
-    </div>
+    </h1>
   );
 }
 

@@ -1,16 +1,17 @@
 import { DECREMENT, INCREMENT, REMOVE, POST_ORDER, REQUEST, SUCCESS, FAILURE } from '../constants';
 
 const initialState = {
-  entities: {},
   loading: false,
   loaded: false,
-  error: null
+  error: null,
+  entities: {}, 
 }
 
 // { [productId]: amount }
 export default function (state = initialState, action) {
   const { type, id, error } = action;
   const {entities} = state;
+  
   switch (type) {
     case INCREMENT:
       return {
